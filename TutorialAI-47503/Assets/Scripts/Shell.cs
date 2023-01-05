@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shell : MonoBehaviour
-{
+public class Shell : MonoBehaviour {
+
     public GameObject explosion;
-    float speed = 0f;
-    float yspeed = 0f;
+    float speed = 0;
+    float ySpeed = 0;
     float mass = 10;
     float force = 2;
     float drag = 1;
@@ -14,9 +14,10 @@ public class Shell : MonoBehaviour
     float gAccel;
     float acceleration;
 
-    void OnCollisionEnter(Collision col)
+
+    void OnCollisionEnter(Collision col) 
     {
-        if (col.gameObject.tag == "tank")
+        if (col.gameObject.tag == "tank") 
         {
             GameObject exp = Instantiate(explosion, this.transform.position, Quaternion.identity);
             Destroy(exp, 0.5f);
@@ -24,19 +25,17 @@ public class Shell : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start() 
     {
         acceleration = force / mass;
         speed += acceleration * 1;
         gAccel = gravity / mass;
     }
 
-    // Update is called once per frame
-    void LateUpdate()
+    void LateUpdate() 
     {
         speed *= (1 - Time.deltaTime * drag);
-        yspeed += gAccel * Time.deltaTime;
-        this.transform.Translate(0, yspeed, speed);
+        ySpeed += gAccel * Time.deltaTime;
+        this.transform.Translate(0, ySpeed, speed);
     }
 }
